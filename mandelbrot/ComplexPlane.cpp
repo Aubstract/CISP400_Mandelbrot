@@ -52,7 +52,7 @@ void ComplexPlane::setMouseLocation(Vector2f coord)
 
 size_t ComplexPlane::countIterations(Vector2f coord)
 {
-	complex<double> c = sqrt(pow(coord.x, 2) + pow(coord.y, 2));
+	complex<double> c (coord.x, coord.y);
 	complex<double> z = 0.0;
 
 	size_t iterations = 0;
@@ -61,7 +61,6 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 	{
 		z = pow(z, 2) + c;
 
-		// break condition
 		if (abs(z) > 2.0)
 		{
 			break;
