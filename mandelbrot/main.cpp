@@ -21,6 +21,7 @@ int main()
 	
 	// Variables that may be used later...maybe
 	Vector2f mousePosition;
+	Vector2f mouseClick;
 	ComplexPlane plane(aspectRatio);
 
 	VideoMode vm(width, height);
@@ -58,18 +59,18 @@ int main()
 
 			if (event.type == Event::MouseButtonPressed)
 			{
-				//Might have flubbed this one
-				mousePosition = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
+				//Might have flubbed the inputs
+				mouseClick = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
 
 				if (Mouse::isButtonPressed(Mouse::Left))
 				{
 					plane.zoomIn();
-					//plane.setCenter(/*Cords needed*/);
+					plane.setCenter(mouseClick);
 				}
 				if (Mouse::isButtonPressed(Mouse::Right))
 				{
 					plane.zoomOut();
-					//plane.setCenter(/*Cords needed*/);
+					plane.setCenter(mouseClick);
 
 				}
 				state = State::CALCULATING;
@@ -91,7 +92,10 @@ int main()
 		Update the scene
 		****************************************
 		*/
+		if (state == State::CALCULATING)
+		{
 
+		}
 
 
 		/*
