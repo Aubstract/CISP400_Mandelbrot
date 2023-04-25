@@ -21,16 +21,31 @@ void ComplexPlane::zoomIn()
 
 
 // zoomOut()
+void ComplexPlane::zoomOut()
+{
+	m_zoomCount--;
 
+	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
+	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+}
 
 // setCenter()
-
+void ComplexPlane::setCenter(Vector2f coord)
+{
+	m_view.setCenter(coord);
+}
 
 // getView()
-
+View ComplexPlane::getView()
+{
+	return m_view;
+}
 
 // setMouseLocation()
-
+void ComplexPlane::setMouseLocation(Vector2f coord)
+{
+	m_mouseLocation = coord;
+}
 
 // loadText()
 
@@ -58,3 +73,7 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 
 
 // iterationsTORGB()
+void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
+{
+
+}

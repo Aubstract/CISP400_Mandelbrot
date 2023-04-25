@@ -9,10 +9,19 @@ using namespace std;
 
 int main()
 {
+	// Setting up the enum class state variable
+	enum State { CALCULATING, DISPLAYING };
+	// Initialize it to CALCULATING
+	State state = State::CALCULATING;
+
 	// Init values
 	unsigned int width = VideoMode::getDesktopMode().width;
 	unsigned int height = VideoMode::getDesktopMode().height;
 	float aspectRatio = static_cast<float>(height) / width;
+	
+	// Variables that may be used later...maybe
+	Vector2f mousePosition;
+	ComplexPlane plane(aspectRatio);
 
 	VideoMode vm(width, height);
 	RenderWindow window(vm, "Mandelbrot Set Plotter");
@@ -26,6 +35,10 @@ int main()
 	Text information;
 	information.setFont(font);
 	information.setCharacterSize(18);
+	
+	VertexArray pointColor;
+	pointColor.setPrimitiveType(Points);
+	pointColor.resize(width* height);
 
 	// Main loop:
 	while (window.isOpen())
@@ -35,9 +48,44 @@ int main()
 		Handle the players input
 		****************************************
 		*/
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+					{
+						window.close();
+					}
 
+			if (event.type == Event::MouseButtonPressed)
+			{
+				//Might have flubbed this one
+				mousePosition = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
 
+				if (Mouse::isButtonPressed(Mouse::Left))
+				{
+					plane.zoomIn();
+					//plane.setCenter(/*Cords needed*/);
+				}
+				if (Mouse::isButtonPressed(Mouse::Right))
+				{
+					plane.zoomOut();
+					//plane.setCenter(/*Cords needed*/);
 
+				}
+				state = State::CALCULATING;
+			}
+			if (event.type == Event::MouseMoved)
+			{
+				mousePosition = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
+				plane.setMouseLocation(mousePosition);
+			}
+			if (Keyboard::isKeyPressed(Keyboard::Escape))
+			{
+				window.close();
+			}
+		}
+
+		
 		/*
 		****************************************
 		Update the scene
