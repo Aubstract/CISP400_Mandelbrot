@@ -87,15 +87,7 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
-}
-
-
-// iterationsTORGB()
-//I don't get it sorry
-void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
-{
-	//Count is the amount of iterations
-
+	int step = MAX_ITER / 5;
 	//Im going to start off in gray scale first
 	if (count == MAX_ITER)
 	{
@@ -103,37 +95,34 @@ void iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		g = 0;
 		b = 0;
 	}
-	else if (count >= 0 && count < MAX_ITER)
+	else if (count >= 0 && count < step)
 	{
-		if (count >= 0 && count < 12)
-		{
-			r = 90;
-			g = 90;
-			b = 90;
-		}
-		else if (count >= 12 && count < 24)
-		{
-			r = 70;
-			g = 70;
-			b = 70;
-		}
-		else if (count >= 24 && count < 36)
-		{
-			r = 50;
-			g = 50;
-			b = 50;
-		}
-		else if (count >= 36 && count < 48)
-		{
-			r = 30;
-			g = 30;
-			b = 30;
-		}
-		else if (count >= 48)
-		{
-			r = 10;
-			g = 10;
-			b = 10;
-		}
+		r = 90;
+		g = 90;
+		b = 90;
+	}
+	else if (count >= step && count < step * 2)
+	{
+		r = 70;
+		g = 70;
+		b = 70;
+	}
+	else if (count >= step * 2 && count < step * 3)
+	{
+		r = 50;
+		g = 50;
+		b = 50;
+	}
+	else if (count >= step * 3 && count < step * 4)
+	{
+		r = 30;
+		g = 30;
+		b = 30;
+	}
+	else if (count >= step * 4)
+	{
+		r = 10;
+		g = 10;
+		b = 10;
 	}
 }
