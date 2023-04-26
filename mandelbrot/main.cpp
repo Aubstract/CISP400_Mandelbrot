@@ -28,14 +28,15 @@ int main()
 	RenderWindow window(vm, "Mandelbrot Set Plotter");
 
 	Font font;
-	if (!font.loadFromFile("mandelbrot/fonts/Comic_Sans_MS.ttf"))
+	if (!font.loadFromFile("./fonts/Comic_Sans_MS.ttf"))
 	{
 		cout << "Failed to find font..." << endl;
 	}
 
 	Text information;
 	information.setFont(font);
-	information.setCharacterSize(18);
+	information.setCharacterSize(18); 
+	information.setPosition(width/2, height/2);
 	
 	VertexArray vArray;
 	vArray.setPrimitiveType(Points);

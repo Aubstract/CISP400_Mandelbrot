@@ -52,15 +52,19 @@ void ComplexPlane::setMouseLocation(Vector2f coord)
 void ComplexPlane::loadText(Text& text)
 {
 	stringstream ss;
-	ss << "Mandelbrot Set" << endl
-		<< "Center: " << "(" << m_view.getCenter().x <<"," << m_view.getCenter().y << ")" << endl
-		<< "Cursor: " << "(" << m_mouseLocation.x << "," << m_mouseLocation.y << ")" << endl
-		<< "Left-click to Zoom in" << endl
+	ss << noskipws << "Mandelbrot Set" << '\n'
+		<< "Center: " << "(" << m_view.getCenter().x <<"," << m_view.getCenter().y << ")" << '\n'
+		<< "Cursor: " << "(" << m_mouseLocation.x << "," << m_mouseLocation.y << ")" << '\n'
+		<< "Left-click to Zoom in" << '\n'
 		<< "Right-click to Zoom out";
 	string convert;
-	while (ss >> convert);
+	string useString;
+	while (ss >> convert)
+	{
+		useString += convert;
+	}
 
-	text.setString(convert);
+	text.setString(useString);
 
 }
 
