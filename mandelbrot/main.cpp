@@ -37,9 +37,9 @@ int main()
 	information.setFont(font);
 	information.setCharacterSize(18);
 	
-	VertexArray pointColor;
-	pointColor.setPrimitiveType(Points);
-	pointColor.resize(width* height);
+	VertexArray vArray;
+	vArray.setPrimitiveType(Points);
+	vArray.resize(width * height);
 
 	// Main loop:
 	while (window.isOpen())
@@ -49,6 +49,7 @@ int main()
 		Handle the players input
 		****************************************
 		*/
+	
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -92,9 +93,28 @@ int main()
 		Update the scene
 		****************************************
 		*/
+
 		if (state == State::CALCULATING)
 		{
+			for (int i = 0; i < height; i++)
+			{
+				for (int j = 0; j < width; j++)
+				{
+					vArray[j + i * width].position = { (float)j, (float)i };
+					Vector2i point(j, i);
+					Vector2f pixel = window.mapPixelToCoords(point, plane.getView());
+					size_t iterations = plane.countIterations(pixel);
+					Uint8 r;
+					Uint8 g;
+					Uint8 b;
 
+					plane.iterationsToRGB(iterations, r, g, b);
+
+					vArray[j + i * width].color = { r,g,b };
+				}
+			}
+			state = State::DISPLAYING;
+			plane.loadText(information);
 		}
 
 
@@ -103,7 +123,12 @@ int main()
 		Draw the scene
 		****************************************
 		*/
+		
+			window.clear();
+			window.draw(vArray);
+			window.draw(information);
 
+			window.display();
 
 
 	} // End main loop
