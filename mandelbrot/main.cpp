@@ -19,10 +19,10 @@ int main()
 	unsigned int height = VideoMode::getDesktopMode().height;
 	float aspectRatio = static_cast<float>(height) / width;
 	
-	// Variables that may be used later...maybe
 	Vector2f mousePosition;
 	Vector2f mouseClick;
 	ComplexPlane plane(aspectRatio);
+
 
 	VideoMode vm(width, height);
 	RenderWindow window(vm, "Mandelbrot Set Plotter");
@@ -60,8 +60,6 @@ int main()
 
 			if (event.type == Event::MouseButtonPressed)
 			{
-				//Might have flubbed the inputs
-				cout << "Mouse click" << endl;
 				mouseClick = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
 
 				if (Mouse::isButtonPressed(Mouse::Left))
@@ -115,8 +113,9 @@ int main()
 				}
 			}
 			state = State::DISPLAYING;
-			plane.loadText(information);
+			
 		}
+		plane.loadText(information);
 
 
 		/*
