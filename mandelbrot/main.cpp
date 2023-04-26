@@ -36,7 +36,6 @@ int main()
 	Text information;
 	information.setFont(font);
 	information.setCharacterSize(18); 
-	information.setPosition(width/2, height/2);
 	
 	VertexArray vArray;
 	vArray.setPrimitiveType(Points);

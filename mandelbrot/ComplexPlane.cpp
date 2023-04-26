@@ -57,14 +57,8 @@ void ComplexPlane::loadText(Text& text)
 		<< "Cursor: " << "(" << m_mouseLocation.x << "," << m_mouseLocation.y << ")" << '\n'
 		<< "Left-click to Zoom in" << '\n'
 		<< "Right-click to Zoom out";
-	string convert;
-	string useString;
-	while (ss >> convert)
-	{
-		useString += convert;
-	}
-
-	text.setString(useString);
+	
+	text.setString(ss.str());
 
 }
 
