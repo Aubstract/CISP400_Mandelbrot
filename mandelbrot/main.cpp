@@ -49,7 +49,7 @@ int main()
 		Handle the players input
 		****************************************
 		*/
-	
+		
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -61,6 +61,7 @@ int main()
 			if (event.type == Event::MouseButtonPressed)
 			{
 				//Might have flubbed the inputs
+				cout << "Mouse click" << endl;
 				mouseClick = window.mapPixelToCoords(Mouse::getPosition(), plane.getView());
 
 				if (Mouse::isButtonPressed(Mouse::Left))
@@ -123,12 +124,14 @@ int main()
 		Draw the scene
 		****************************************
 		*/
-		
+		if (state == State::DISPLAYING)
+		{
 			window.clear();
 			window.draw(vArray);
 			window.draw(information);
 
 			window.display();
+		}
 
 
 	} // End main loop

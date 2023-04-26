@@ -27,6 +27,8 @@ void ComplexPlane::zoomOut()
 
 	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
 	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+
+	m_view.setSize(x, y);
 }
 
 // setCenter()
@@ -57,7 +59,7 @@ void ComplexPlane::loadText(Text& text)
 		<< "Left-click to Zoom in" << endl
 		<< "Right-click to Zoom out";
 	string convert;
-	ss >> convert;
+	while (ss >> convert);
 
 	text.setString(convert);
 
