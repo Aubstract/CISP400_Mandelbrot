@@ -28,7 +28,7 @@ int main()
 	RenderWindow window(vm, "Mandelbrot Set Plotter");
 
 	Font font;
-	if (!font.loadFromFile("./fonts/Comic_Sans_MS.ttf"))
+	if (!font.loadFromFile("mandelbrot/fonts/Comic_Sans_MS.ttf"))
 	{
 		cout << "Failed to find font..." << endl;
 	}
@@ -39,7 +39,7 @@ int main()
 	
 	VertexArray vArray;
 	vArray.setPrimitiveType(Points);
-	vArray.resize(width * height);
+	vArray.resize(size_t(width * height));
 
 	// Main loop:
 	while (window.isOpen())
@@ -54,9 +54,9 @@ int main()
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
-					{
-						window.close();
-					}
+			{
+				window.close();
+			}
 
 			if (event.type == Event::MouseButtonPressed)
 			{

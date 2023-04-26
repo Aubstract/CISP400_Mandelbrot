@@ -20,7 +20,6 @@ void ComplexPlane::zoomIn()
 }
 
 
-// zoomOut()
 void ComplexPlane::zoomOut()
 {
 	m_zoomCount--;
@@ -31,25 +30,25 @@ void ComplexPlane::zoomOut()
 	m_view.setSize(x, y);
 }
 
-// setCenter()
+
 void ComplexPlane::setCenter(Vector2f coord)
 {
 	m_view.setCenter(coord);
 }
 
-// getView()
+
 View ComplexPlane::getView()
 {
 	return m_view;
 }
 
-// setMouseLocation()
+
 void ComplexPlane::setMouseLocation(Vector2f coord)
 {
 	m_mouseLocation = coord;
 }
 
-// loadText()
+
 void ComplexPlane::loadText(Text& text)
 {
 	stringstream ss;
@@ -64,6 +63,7 @@ void ComplexPlane::loadText(Text& text)
 	text.setString(convert);
 
 }
+
 
 size_t ComplexPlane::countIterations(Vector2f coord)
 {
@@ -97,31 +97,31 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 	}
 	else if (count >= 0 && count < step)
 	{
-		r = 90;
-		g = 90;
-		b = 90;
+		r = 90 + (MAX_ITER % (count + 1));
+		g = 10;
+		b = 90 + (MAX_ITER % (count + 1));
 	}
 	else if (count >= step && count < step * 2)
 	{
-		r = 70;
-		g = 70;
-		b = 70;
+		r = 10;
+		g = 90 + (MAX_ITER % count);
+		b = 90 + (MAX_ITER % count);
 	}
 	else if (count >= step * 2 && count < step * 3)
 	{
-		r = 50;
-		g = 50;
-		b = 50;
+		r = 1;
+		g = 90 + (MAX_ITER % count);
+		b = 1;
 	}
 	else if (count >= step * 3 && count < step * 4)
 	{
-		r = 30;
-		g = 30;
-		b = 30;
+		r = 90 + (MAX_ITER % count);
+		g = 90 + (MAX_ITER % count);
+		b = 10;
 	}
 	else if (count >= step * 4)
 	{
-		r = 10;
+		r = 90 + (MAX_ITER % count);
 		g = 10;
 		b = 10;
 	}
