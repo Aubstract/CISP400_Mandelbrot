@@ -36,7 +36,7 @@ int main()
 	// Get the number of threads the CPU has
 	static unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency();
 	// Create vect of half as many threads
-	vector<sf::Thread> threads(PROCESSOR_COUNT / 2);
+	vector<thread> threads(PROCESSOR_COUNT / 2);
 
 	// Setting up the enum class state variable
 	enum State { CALCULATING, DISPLAYING };
@@ -127,16 +127,15 @@ int main()
 			for (int i = 0; i < (height - 4); i+=4)
 			{
 				// Dispatch SFML threads
-				threads.at(0) = sf::Thread(&processRow, width, i, vArray, window, plane);
-				thread th2(processRow, width, (i+1), vArray, window, plane);
-				thread th3(processRow, width, (i+2), vArray, window, plane);
-				thread th4(processRow, width, (i+3), vArray, window, plane);
+				for (int j = 0; j < threads.size(); j++)
+				{
+					threads.at(j) = thread(processRow, width, i+j, ref(vArray), ref(window), ref(plane));
+				}
 				
 				// Wait for threads to finish
-				th1.join();
-				th2.join();
-				th3.join();
-				th4.join();
+				for (auto& th : threads) {
+					th.join();
+				}
 			}
 
 			state = State::DISPLAYING;
