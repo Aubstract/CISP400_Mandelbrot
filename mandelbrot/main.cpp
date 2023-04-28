@@ -35,9 +35,10 @@ int main()
 {
 	// Get the number of threads the CPU has
 	static unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency();
-	static unsigned int PROCESSORS_USED = PROCESSOR_COUNT / 2;
-	// Create vect of half as many threads
+	static unsigned int PROCESSORS_USED = static_cast<float>(PROCESSOR_COUNT) * (3.0/4.0); // use 3/4 of available threads
 	vector<thread> threads(PROCESSORS_USED);
+
+	cout << PROCESSORS_USED << " threads" << endl;
 
 	// Setting up the enum class state variable
 	enum State { CALCULATING, DISPLAYING };
