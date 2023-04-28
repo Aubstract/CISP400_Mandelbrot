@@ -14,7 +14,7 @@ void ComplexPlane::zoomIn()
 	m_zoomCount++;
 
 	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
-	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+	float y = -BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
 
 	m_view.setSize(x, y);
 }
@@ -25,7 +25,7 @@ void ComplexPlane::zoomOut()
 	m_zoomCount--;
 
 	float x = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
-	float y = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+	float y = -BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
 
 	m_view.setSize(x, y);
 }
@@ -59,7 +59,6 @@ void ComplexPlane::loadText(Text& text)
 		<< "Right-click to Zoom out";
 	
 	text.setString(ss.str());
-
 }
 
 
@@ -85,6 +84,22 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	if (!count) { count++; }
+
+	r = (MAX_ITER - count) * 4;
+	g = ((MAX_ITER / 2) - count) * 4;
+	b = count * 4;
+
+	if (count == MAX_ITER) { r = 0, g = 0, b = 0; }
+
+
+	/*
+	r = count < 128 ? 127 - count : count < 256 ? 0			  : count - 256;
+	g = count < 128 ? count		  : count < 256 ? 256 - count : 0;
+	b = count < 128 ? 0			  : count < 256 ? count - 256 : 256 - count;
+	*/
+
+	/*
 	int step = MAX_ITER / 5;
 	//Im going to start off in gray scale first
 	if (count == MAX_ITER)
@@ -123,4 +138,5 @@ void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 		g = 10;
 		b = 10;
 	}
+	*/
 }

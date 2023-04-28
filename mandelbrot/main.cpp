@@ -2,13 +2,16 @@
 // Names: Aubrey Fields, William Garcia-Cortes
 
 #include "ComplexPlane.h"
-#include <iostream>
+#include <thread>
 
 using namespace sf;
 using namespace std;
 
 int main()
 {
+	// Get the number of threads the CPU has
+	const unsigned int PROCESSOR_COUNT = std::thread::hardware_concurrency();
+
 	// Setting up the enum class state variable
 	enum State { CALCULATING, DISPLAYING };
 	// Initialize it to CALCULATING
@@ -28,7 +31,7 @@ int main()
 	RenderWindow window(vm, "Mandelbrot Set Plotter");
 
 	Font font;
-	if (!font.loadFromFile("./fonts/Comic_Sans_MS.ttf"))
+	if (!font.loadFromFile("./fonts/Comic_Sans_MS.ttf") && !font.loadFromFile("mandelbrot/fonts/Comic_Sans_MS.ttf"))
 	{
 		cout << "Failed to find font..." << endl;
 	}
@@ -39,7 +42,7 @@ int main()
 	
 	VertexArray vArray;
 	vArray.setPrimitiveType(Points);
-	vArray.resize(size_t(width * height));
+	vArray.resize(size_t(width) * height);
 
 	// Main loop:
 	while (window.isOpen())
