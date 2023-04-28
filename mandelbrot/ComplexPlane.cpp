@@ -85,7 +85,7 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
 	// SCALE_FACTOR is used to map values from [0, MAX_ITER] to [0, UINT8_MAX]
-	const unsigned int SCALE_FACTOR = MAX_ITER / UINT8_MAX;
+	const unsigned int SCALE_FACTOR = UINT8_MAX / MAX_ITER;
 
 	if (!count) { count++; }
 
