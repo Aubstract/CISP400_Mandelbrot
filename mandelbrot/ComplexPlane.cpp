@@ -84,59 +84,14 @@ size_t ComplexPlane::countIterations(Vector2f coord)
 
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
+	// SCALE_FACTOR is used to map values from [0, MAX_ITER] to [0, UINT8_MAX]
+	const unsigned int SCALE_FACTOR = MAX_ITER / UINT8_MAX;
+
 	if (!count) { count++; }
 
-	r = (MAX_ITER - count) * 4;
-	g = ((MAX_ITER / 2) - count) * 4;
-	b = count * 4;
+	r = (MAX_ITER - count) * SCALE_FACTOR;
+	g = ((MAX_ITER / 2) - count) * SCALE_FACTOR;
+	b = count * SCALE_FACTOR;
 
 	if (count == MAX_ITER) { r = 0, g = 0, b = 0; }
-
-
-	/*
-	r = count < 128 ? 127 - count : count < 256 ? 0			  : count - 256;
-	g = count < 128 ? count		  : count < 256 ? 256 - count : 0;
-	b = count < 128 ? 0			  : count < 256 ? count - 256 : 256 - count;
-	*/
-
-	/*
-	int step = MAX_ITER / 5;
-	//Im going to start off in gray scale first
-	if (count == MAX_ITER)
-	{
-		r = 0;
-		g = 0;
-		b = 0;
-	}
-	else if (count >= 0 && count < step)
-	{
-		r = 90 + (MAX_ITER % (count + 1));
-		g = 10;
-		b = 90 + (MAX_ITER % (count + 1));
-	}
-	else if (count >= step && count < step * 2)
-	{
-		r = 10;
-		g = 90 + (MAX_ITER % count);
-		b = 90 + (MAX_ITER % count);
-	}
-	else if (count >= step * 2 && count < step * 3)
-	{
-		r = 1;
-		g = 90 + (MAX_ITER % count);
-		b = 1;
-	}
-	else if (count >= step * 3 && count < step * 4)
-	{
-		r = 90 + (MAX_ITER % count);
-		g = 90 + (MAX_ITER % count);
-		b = 10;
-	}
-	else if (count >= step * 4)
-	{
-		r = 90 + (MAX_ITER % count);
-		g = 10;
-		b = 10;
-	}
-	*/
 }
